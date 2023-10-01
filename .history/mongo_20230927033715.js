@@ -1,6 +1,6 @@
-
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://LordThiouk:<password>@lordthiouk.2ea7p5c.mongodb.net/?retryWrites=true&w=majority";
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const uri =
+  "mongodb+srv://LordThiouk:<password>@lordthiouk.2ea7p5c.mongodb.net/?retryWrites=true&w=majority";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -8,7 +8,7 @@ const client = new MongoClient(uri, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
+  },
 });
 
 async function run() {
@@ -17,7 +17,9 @@ async function run() {
     await client.connect();
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!"
+    );
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
@@ -25,32 +27,31 @@ async function run() {
 }
 run().catch(console.dir);
 
-if (process.argv.length<3) {
-  console.log('give password as argument')
-  process.exit(1)
+if (process.argv.length < 3) {
+  console.log("give password as argument");
+  process.exit(1);
 }
 
-const password = process.argv[2]
+const password = process.argv[2];
 
-const url =
-  `mongodb+srv://LordThiouk:${password}@lordthiouk.2ea7p5c.mongodb.net/?retryWrites=true&w=majority`
+const url = `mongodb+srv://LordThiouk:${password}@lordthiouk.2ea7p5c.mongodb.net/?retryWrites=true&w=majority`;
 
-mongoose.set('strictQuery',false)
-mongoose.connect(url)
+mongoose.set("strictQuery", false);
+mongoose.connect(url);
 
 const noteSchema = new mongoose.Schema({
   content: String,
   important: Boolean,
-})
+});
 
-const Note = mongoose.model('Note', noteSchema)
+const Note = mongoose.model("Note", noteSchema);
 
 const note = new Note({
-  content: 'HTML is Easy',
+  content: "HTML is Easy",
   important: true,
-})
+});
 
-note.save().then(result => {
-  console.log('note saved!')
-  mongoose.connection.close()
-})
+note.save().then((result) => {
+  console.log("note saved!");
+  mongoose.connection.close();
+});
